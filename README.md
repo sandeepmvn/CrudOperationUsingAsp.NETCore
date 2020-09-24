@@ -23,6 +23,35 @@
   
       a. This database provider allows Entity Framework Core to be used with Microsoft SQL Server (including Azure SQL Database).
       
+ # DbContext Class
+ 1. A DbContext instance represents a session with the database and can be used to query and save instances of your entities.
+ 
+ 2. DbContext must have an instance of DbContextOptions in order to perform any work. The DbContextOptions instance carries configuration information such as:
+ 
+       1. Dataprovider
+       2. ConnectionString
+  
+  3. Example with initializing at constructor level
+     
+            public class SomeDbContext : DbContext
+            {
+            public BloggingContext(DbContextOptions<SomeDbContext> options)
+                : base(options)
+            { }
+
+            public DbSet<Employee> Employees { get; set; }
+             }
+ 
+ 4. Example with initializing at method level instead of constructor level
+  
+         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+         { 
+             if(!optionBuilder ,IsConfigured)
+              {
+                 //initializing.......
+             }
+         }
+ 
  # Creating and configuring a model     
  
  1. Entity Framework uses a set of conventions to build a model based on the shape of your entity classes. You can specify additional configuration to supplement and/or override what was discovered by convention.
@@ -31,6 +60,26 @@
      
       2. Using Fluent API
       
+  # using Data Annotations
+  1. using System.ComponentModel.DataAnnotations will apply the attributes towards classes and Properties
+               
+            public class Employee
+            {
+                public int EmpId { get; set; }
+                [Required]
+                public string EmpName { get; set; }
+            }
+            
+   # Using Fluent API
+   1. We can override the OnModelCreating method in your derived context and use the ModelBuilder API to configure your model. This is the most powerful method of configuration and allows configuration to be specified without modifying your entity classes. Fluent API configuration has the highest precedence and will override conventions and data annotations.
+   
+          protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                modelBuilder.Entity<Employee>()
+                    .Property(b => b.EmpName)
+                    .IsRequired();
+            }
+       
 
 
 
