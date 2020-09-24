@@ -83,6 +83,25 @@
         
    # Migrations
    1. Migration is a way to keep the database schema in sync with the EF Core model by preserving data
+         1. Add-Migration
+         
+         2. Remove-Migration
+         
+         3. Update- Database
+         
+         4. Scaffold-Dbcontext
+         
+              i. Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+              
+              
+   # Working With ASP.Net Core
+   1. To add EF Core support to a project, install the
+     1. Microsoft.EntityFrameworkCore
+     2. Microsoft.EntityFrameworkCore.SqlServer
+     3. Microsoft.EntityFrameworkCore.Tools
+    
+              
+              
    
 
 
