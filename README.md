@@ -79,7 +79,11 @@
                     .Property(b => b.EmpName)
                     .IsRequired();
             }
-       
+            
+        
+   # Migrations
+   1. Migration is a way to keep the database schema in sync with the EF Core model by preserving data
+   
 
 
 
