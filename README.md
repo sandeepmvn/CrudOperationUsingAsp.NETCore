@@ -96,8 +96,11 @@
               
    # Working With ASP.Net Core
    1. To add EF Core support to a project, install the
+   
      1. Microsoft.EntityFrameworkCore
+     
      2. Microsoft.EntityFrameworkCore.SqlServer
+     
      3. Microsoft.EntityFrameworkCore.Tools
     
               
