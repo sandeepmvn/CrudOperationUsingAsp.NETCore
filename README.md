@@ -11,7 +11,7 @@
 
 3. With EFCore, Data access is performed using the model. The model is made up of entity Class and DbContext object.
 
-4. Allowing You to query and save the data
+4. Allowing You to query(LINQ) and save the data
 
 # Working with the Data Providers
 
@@ -20,6 +20,17 @@
   2. Entity Framework Core can access many different databases through plug-in libraries called database providers.
   
   3. Microsoft.EntityFrameworkCore.SqlServer is the nugget package to work with Sql Server
+  
+      a. This database provider allows Entity Framework Core to be used with Microsoft SQL Server (including Azure SQL Database).
+      
+ # Creating and configuring a model     
+ 
+ 1. Entity Framework uses a set of conventions to build a model based on the shape of your entity classes. You can specify additional configuration to supplement and/or override what was discovered by convention.
+ 
+      1. Using Data Annotations
+     
+      2. Using Fluent API
+      
 
 
 
