@@ -1,5 +1,5 @@
 
-#Crud operation using asp.net core
+# Crud operation using asp.net core
 
 1.Entity Framework (EF) Core is a lightweight, extensible, open source and cross-platform version of the popular Entity Framework data access technology.
 
@@ -12,3 +12,14 @@
 3. With EFCore, Data access is performed using the model. The model is made up of entity Class and DbContext object.
 
 4. Allowing You to query and save the data
+
+# Working with the Data Providers
+
+  1. https://docs.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli
+  
+  2. Entity Framework Core can access many different databases through plug-in libraries called database providers.
+  
+  3. Microsoft.EntityFrameworkCore.SqlServer is the nugget package to work with Sql Server
+
+
+
