@@ -18,14 +18,14 @@ namespace CrudOperationsWithExistingDb.Models
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-////#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=DESKTOP-UOENECT\\SQLEXPRESS;Database=SampleCoreDB;Trusted_Connection=True;");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-UOENECT\\SQLEXPRESS;Database=SampleCoreDB;Trusted_Connection=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,8 @@ namespace CrudOperationsWithExistingDb.Models
                 entity.Property(e => e.EmployeeSalary).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.FkdeptId).HasColumnName("FKDeptId");
+
+                entity.Property(e => e.EmployeeAddress).HasMaxLength(250).HasDefaultValue("");
 
                 entity.HasOne(d => d.Fkdept)
                     .WithMany(p => p.Employee)
