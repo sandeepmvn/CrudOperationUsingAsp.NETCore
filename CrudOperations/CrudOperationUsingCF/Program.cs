@@ -30,6 +30,7 @@ namespace CrudOperationUsingCF
                     var context = services.GetRequiredService<SampleCoreDbContext>();
                     //Context
                     context.Database.EnsureCreated();
+                    context.Database.Migrate();
                 }
                 catch (Exception ex)
                 {
