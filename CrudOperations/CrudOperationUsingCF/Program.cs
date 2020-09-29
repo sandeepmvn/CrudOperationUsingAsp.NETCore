@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrudOperationUsingCF.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,6 +31,8 @@ namespace CrudOperationUsingCF
                     var context = services.GetRequiredService<SampleCoreDbContext>();
                     //Context
                     context.Database.EnsureCreated();
+                    //context.Database.Migrate();
+                    Seed(context);
                 }
                 catch (Exception ex)
                 {
@@ -38,6 +41,34 @@ namespace CrudOperationUsingCF
                 }
             }
 
+        }
+
+
+        static void Seed(SampleCoreDbContext context)
+        {
+            if (!context.Department.Any())
+            {
+                context.Department.AddRange(new List<Department>()
+                {
+                    new Department()
+                    {
+                         DepartmentName="Test1Dept",
+                         IsActive=false
+                    },
+                     new Department()
+                    {
+                         DepartmentName="Test12Dept",
+                         IsActive=false
+                    },
+                      new Department()
+                    {
+                         DepartmentName="Test13Dept",
+                         IsActive=false
+                    }
+
+                });
+                context.SaveChanges();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

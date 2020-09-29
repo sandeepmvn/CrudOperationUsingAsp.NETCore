@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CrudOperationUsingCF.Models;
+using CrudOperationUsingCF.Repositories;
 
 namespace CrudOperationUsingCF.Controllers
 {
@@ -13,31 +14,44 @@ namespace CrudOperationUsingCF.Controllers
     [ApiController]
     public class DepartmentsController : ControllerBase
     {
-        private readonly SampleCoreDbContext _context;
+        //private readonly SampleCoreDbContext _context;
 
-        public DepartmentsController(SampleCoreDbContext context)
+        //public DepartmentsController(SampleCoreDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+        //private readonly DepartmentRepository _deptrepo;
+        //public DepartmentsController()
+        //{
+        //    _deptrepo = new DepartmentRepository();
+        //}
+
+        private readonly IDepartmentRepository _deptrepo;
+        public DepartmentsController(IDepartmentRepository departmentRepository)
         {
-            _context = context;
+            _deptrepo = departmentRepository;
         }
+
 
         // GET: api/Departments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Department>>> GetDepartment()
         {
-            return await _context.Department.ToListAsync();
+            // return await _context.Department.ToListAsync();
+            return _deptrepo.GetDepartments();
         }
 
         // GET: api/Departments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Department>> GetDepartment(int id)
         {
-            var department = await _context.Department.FindAsync(id);
+            var department = _deptrepo.GetDepartment(id);  //await _context.Department.FindAsync(id);
 
             if (department == null)
             {
                 return NotFound();
             }
-
             return department;
         }
 
@@ -52,11 +66,12 @@ namespace CrudOperationUsingCF.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(department).State = EntityState.Modified;
+            //_context.Entry(department).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                _deptrepo.UpdateDept(department);
+                //await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -79,8 +94,9 @@ namespace CrudOperationUsingCF.Controllers
         [HttpPost]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
-            _context.Department.Add(department);
-            await _context.SaveChangesAsync();
+            //_context.Department.Add(department);
+            //await _context.SaveChangesAsync();
+            _deptrepo.InsertDept(department);
 
             return CreatedAtAction("GetDepartment", new { id = department.Id }, department);
         }
@@ -89,21 +105,23 @@ namespace CrudOperationUsingCF.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int id)
         {
-            var department = await _context.Department.FindAsync(id);
-            if (department == null)
-            {
-                return NotFound();
-            }
+            //var department = await _context.Department.FindAsync(id);
+            //if (department == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _context.Department.Remove(department);
-            await _context.SaveChangesAsync();
+            //_context.Department.Remove(department);
+            //await _context.SaveChangesAsync();
 
+           var department= _deptrepo.DeleteDept(id);
             return department;
         }
 
         private bool DepartmentExists(int id)
         {
-            return _context.Department.Any(e => e.Id == id);
+            // return _context.Department.Any(e => e.Id == id);
+            return _deptrepo.DepartmentExists(id);
         }
     }
 }

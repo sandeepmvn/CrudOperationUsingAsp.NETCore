@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CrudOperationUsingCF.Models;
+using CrudOperationUsingCF.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace CrudOperationUsingCF
             services.AddDbContext<SampleCoreDbContext>(options => {
                 options.UseSqlServer("Server=DESKTOP-UOENECT\\SQLEXPRESS;Database=SampleCFCoreDB1;Trusted_Connection=True;");
             });
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
